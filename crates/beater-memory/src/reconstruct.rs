@@ -815,7 +815,7 @@ mod tests {
     fn command_reconstructor_does_not_block_on_lingering_grandchild_output() -> MemoryResult<()> {
         let provider = CommandReconstructionProvider::new(
             CommandReconstructionProviderConfig::new("/bin/sh")
-                .with_args(["-c", "sleep 2 &"])
+                .with_args(["-c", "cat >/dev/null; sleep 2 &"])
                 .with_timeout_ms(100),
         );
         let started = Instant::now();
