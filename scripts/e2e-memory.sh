@@ -18,7 +18,9 @@ cleanup() {
 }
 trap cleanup EXIT
 
-BIN="$ROOT/target/debug/beater-memory"
+# Cargo may use a configured or environment-provided target directory.
+TARGET_DIR="$(cargo metadata --format-version 1 --no-deps | python3 -c 'import json, sys; print(json.load(sys.stdin)["target_directory"])')"
+BIN="$TARGET_DIR/debug/beater-memory"
 DB="$TMP_DIR/memory.db"
 TOKEN="e2e-secret"
 PORT=""
